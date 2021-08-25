@@ -7,11 +7,19 @@ import 'package:pokedesk/models/pokemon_model.dart';
 class PokemonServices {
   final String url = "https://pokeapi.co/api/v2/pokemon";
 
-  Future<ListPokemonModel> getPokemons() async {
+  Future<ListPokemonModel> getPokemons(String? next) async {
     ListPokemonModel listPokemonModel = ListPokemonModel();
     try {
       var client = http.Client();
-      var response = await client.get(Uri.parse(url));
+      var uri;
+
+      if (next != null) {
+        uri = Uri.parse(next);
+      } else {
+        uri = Uri.parse(url);
+      }
+
+      var response = await client.get(uri);
       var results = jsonDecode(response.body)["results"] as List<dynamic>;
 
       List<PokemonModel> pokemons =

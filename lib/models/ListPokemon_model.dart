@@ -12,8 +12,6 @@ class ListPokemonModel {
       {"next": next, "previous": previous, "results": results};
 
   factory ListPokemonModel.fromMap(Map<String, dynamic> map) {
-    print("map => " + map["results"].toString());
-    //List<PokemonModel> pokemons =
     return ListPokemonModel(next: map["next"], previous: map["previous"]);
   }
 

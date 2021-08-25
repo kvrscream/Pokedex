@@ -8,16 +8,32 @@ class HomeController {
   List<PokemonModel> get pokemons => pokemonsNotifier.value;
   set pokemons(List<PokemonModel> value) => pokemonsNotifier.value = value;
 
+  String? next;
+
   HomeController() {
     getPokemons();
   }
 
   Future<void> getPokemons() async {
-    ListPokemonModel pokemonList = await PokemonServices().getPokemons();
+    ListPokemonModel pokemonList = await PokemonServices().getPokemons(null);
     try {
       pokemons = pokemonList.results!;
+      next = pokemonList.next;
     } catch (e) {
       print(e.toString());
+    }
+    return;
+  }
+
+  Future<void> nextPokemons() async {
+    if (next != null) {
+      ListPokemonModel pokemonList = await PokemonServices().getPokemons(next);
+      try {
+        pokemons.addAll(pokemonList.results!);
+        next = pokemonList.next;
+      } catch (e) {
+        print(e.toString());
+      }
     }
     return;
   }

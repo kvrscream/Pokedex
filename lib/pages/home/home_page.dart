@@ -12,6 +12,25 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   HomeController controller = HomeController();
+  ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        controller.nextPokemons();
+        setState(() {});
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +42,7 @@ class _HomePageState extends State<HomePage> {
         body: ValueListenableBuilder<List<PokemonModel>>(
           valueListenable: controller.pokemonsNotifier,
           builder: (_, pokemons, __) => ListView.builder(
+            controller: _scrollController,
             itemCount: pokemons.length,
             itemBuilder: (context, index) {
               return ListTile(
