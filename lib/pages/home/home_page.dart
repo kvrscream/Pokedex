@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   HomeController controller = HomeController();
   ScrollController _scrollController = ScrollController();
+  bool isSearch = false;
 
   @override
   void initState() {
@@ -36,8 +37,24 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Pokedex"),
+          title: isSearch
+              ? TextField(
+                  cursorColor: AppColors.backgorund,
+                )
+              : Text("Pokedex"),
           backgroundColor: AppColors.primary,
+          actions: <Widget>[
+            IconButton(
+                onPressed: () {
+                  if (isSearch) {
+                    isSearch = false;
+                  } else {
+                    isSearch = true;
+                  }
+                  setState(() {});
+                },
+                icon: Icon(isSearch ? Icons.close : Icons.search))
+          ],
         ),
         body: ValueListenableBuilder<List<PokemonModel>>(
           valueListenable: controller.pokemonsNotifier,
