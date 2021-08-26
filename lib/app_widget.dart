@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedesk/pages/home/home_page.dart';
+import 'package:pokedesk/pages/search/search_page.dart';
 import 'package:pokedesk/themes/app_colors.dart';
 
 class AppWidget extends StatelessWidget {
@@ -12,6 +13,9 @@ class AppWidget extends StatelessWidget {
         theme: ThemeData(
             primaryColor: AppColors.primary, primarySwatch: Colors.red),
         initialRoute: "/home",
-        routes: {"/home": (context) => HomePage()});
+        routes: {
+          "/home": (context) => HomePage(),
+          "/search": (context) => SearchPage(),
+        });
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:convert';
-
 import 'package:pokedesk/models/ListPokemon_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:pokedesk/models/detail_pokemon_model.dart';
 import 'package:pokedesk/models/pokemon_model.dart';
 
 class PokemonServices {
@@ -31,5 +31,18 @@ class PokemonServices {
       print("erro ao listar todos os pokemons: " + e.toString());
     }
     return listPokemonModel;
+  }
+
+  Future<DetailPokemnonModel> searchPokemon(String nameOrId) async {
+    DetailPokemnonModel pokemon = DetailPokemnonModel();
+    try {
+      var client = http.Client();
+      var response = await client.get(Uri.parse(url + "/" + nameOrId));
+      pokemon = DetailPokemnonModel.fromJson(response.body);
+    } catch (e) {
+      print("erro ao buscar pokemon: " + e.toString());
+    }
+
+    return pokemon;
   }
 }
