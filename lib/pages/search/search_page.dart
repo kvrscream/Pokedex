@@ -33,7 +33,7 @@ class _SearchPageState extends State<SearchPage> {
                     controller.onChange(value);
                   },
                   decoration: InputDecoration(
-                    labelText: "Digite o nome do pokémon",
+                    labelText: "Digite o nome ou id do pokémon",
                     suffixIcon: IconButton(
                       onPressed: () async {
                         await controller.searchPokemon();
@@ -56,7 +56,7 @@ class _SearchPageState extends State<SearchPage> {
                       return Container(
                         child: Center(
                           child: CircularProgressIndicator(
-                            color: AppColors.secondary,
+                            color: AppColors.primary,
                           ),
                         ),
                       );

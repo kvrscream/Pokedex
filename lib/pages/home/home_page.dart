@@ -54,6 +54,9 @@ class _HomePageState extends State<HomePage> {
             itemBuilder: (context, index) {
               return ListTile(
                 title: Text(pokemons[index].name),
+                onTap: () {
+                  print(pokemons[index].name);
+                },
               );
             },
           ),
