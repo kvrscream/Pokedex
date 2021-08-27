@@ -47,19 +47,30 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         body: ValueListenableBuilder<List<PokemonModel>>(
-          valueListenable: controller.pokemonsNotifier,
-          builder: (_, pokemons, __) => ListView.builder(
-            controller: _scrollController,
-            itemCount: pokemons.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(pokemons[index].name),
-                onTap: () {
-                  print(pokemons[index].name);
-                },
-              );
-            },
-          ),
-        ));
+            valueListenable: controller.pokemonsNotifier,
+            builder: (_, pokemons, __) {
+              if (pokemons.length > 0) {
+                return ListView.builder(
+                  controller: _scrollController,
+                  itemCount: pokemons.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(pokemons[index].name),
+                      onTap: () {
+                        Navigator.pushNamed(context, "/detail",
+                            arguments: pokemons[index].name);
+                      },
+                    );
+                  },
+                );
+              } else {
+                return Container(
+                    child: Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.primary,
+                  ),
+                ));
+              }
+            }));
   }
 }
